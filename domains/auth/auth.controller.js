@@ -32,7 +32,7 @@ class AuthController {
 
             return res.status(200).json(new this.response(200, accessToken))
         } catch (error) {
-            next(error)
+            return next(error)
         }
     }
 

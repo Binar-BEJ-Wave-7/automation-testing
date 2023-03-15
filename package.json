@@ -6,7 +6,7 @@
   "scripts": {
     "start:dev": "cross-env NODE_ENV=development nodemon .",
     "start": "cross-env NODE_ENV=production node .",
-    "test": "cross-env NODE_ENV=test jest",
+    "test": "cross-env NODE_ENV=test jest --coverage",
     "sequelize": "sequelize",
     "db:migrate:development": "cross-env NODE_ENV=development sequelize db:migrate",
     "db:migrate:undo:development": "cross-env NODE_ENV=development sequelize db:migrate:undo",
