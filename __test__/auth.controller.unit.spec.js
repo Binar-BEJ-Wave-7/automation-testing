@@ -1,30 +1,21 @@
 const AuthController = require('../domains/auth/auth.controller')
 const {Response, ErrorResponse} = require('../lib/response.lib')
+const {mockBcryptReturnFalse, mockBcryptReturnTrue} = require('../factories/bcrypt.factory')
+const {findOneReturnNull, findOneReturnValue} = require('../factories/user.factory')
 
 const mockAccessToken = 'djscandsjvhbuacewuywebchdbc'
 const mockJwt = {
     sign: jest.fn().mockImplementation((payload, secret, options) => mockAccessToken)
 }
 
-
 describe('Testing: AuthController', () => {
     describe('Testing: Login Function', () => {
         it('should return success login user', (done) => {
             const mockUser =  {
-                findOne: (params) => {
-                    return Promise.resolve({
-                        id: 1,
-                        email: 'saefulloh@email.com',
-                        password: '$2a$10$uB4ipw1ncbt.7UQnmK6fI.uiMFuetpoSr7GvalDbcU98ms6DbLQl2'
-                    })
-                }
-            }
-
-            const mockBcrypt = {
-                compare: jest.fn().mockImplementation((plainText, hashText) => Promise.resolve(true))
+                findOne: findOneReturnValue
             }
             
-            const controller = new AuthController(mockUser, mockBcrypt, mockJwt, Response, ErrorResponse)
+            const controller = new AuthController(mockUser, mockBcryptReturnTrue, mockJwt, Response, ErrorResponse)
 
             const mockReq = {
                 body: {
@@ -54,16 +45,10 @@ describe('Testing: AuthController', () => {
 
         it('should return user not found', (done) => {
             const mockUser =  {
-                findOne: (params) => {
-                    return Promise.resolve(null)
-                }
+                findOne: findOneReturnNull
             }
 
-            const mockBcrypt = {
-                compare: jest.fn().mockImplementation((plainText, hashText) => Promise.resolve(true))
-            }
-            
-            const controller = new AuthController(mockUser, mockBcrypt, mockJwt, Response, ErrorResponse)
+            const controller = new AuthController(mockUser, mockBcryptReturnTrue, mockJwt, Response, ErrorResponse)
             const mockReq = {
                 body: {
                     email: 'someemail@gmail.com',
@@ -91,20 +76,10 @@ describe('Testing: AuthController', () => {
 
         it('should return password not match', (done) => {
             const mockUser =  {
-                findOne: (params) => {
-                    return Promise.resolve({
-                        id: 1,
-                        email: 'saefulloh@email.com',
-                        password: '$2a$10$uB4ipw1ncbt.7UQnmK6fI.uiMFuetpoSr7GvalDbcU98ms6DbLQl2'
-                    })
-                }
-            }
-
-            const mockBcrypt = {
-                compare: jest.fn().mockImplementation((plainText, hashText) => Promise.resolve(false))
+                findOne: findOneReturnValue
             }
             
-            const controller = new AuthController(mockUser, mockBcrypt, mockJwt, Response, ErrorResponse)
+            const controller = new AuthController(mockUser, mockBcryptReturnFalse, mockJwt, Response, ErrorResponse)
             const mockReq = {
                 body: {
                     email: 'someemail@gmail.com',
