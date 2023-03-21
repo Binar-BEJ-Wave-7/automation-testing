@@ -10,8 +10,11 @@
     "sequelize": "sequelize",
     "db:migrate:development": "cross-env NODE_ENV=development sequelize db:migrate",
     "db:migrate:undo:development": "cross-env NODE_ENV=development sequelize db:migrate:undo",
+    "db:seed:development": "cross-env NODE_ENV=development sequelize db:seed:all",
+    
     "db:migrate:prod": "cross-env NODE_ENV=production sequelize db:migrate",
-    "db:seed:development": "cross-env NODE_ENV=development sequelize db:seed:all"
+    "db:migrate:undo:prod": "cross-env NODE_ENV=production sequelize db:migrate:undo",
+    "db:seed:prod": "cross-env NODE_ENV=production sequelize db:seed:all"
   },
   "author": "",
   "license": "ISC",
