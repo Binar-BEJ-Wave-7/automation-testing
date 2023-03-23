@@ -1,0 +1,26 @@
+name: Deploy Automation Testing Project
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: 178.128.59.112
+          username: root
+          password: 5.9KmYyecwM+xFQ
+          script: |
+            cd /root/automation-testing
+            git pull origin main
+            docker compose down
+            docker compose up -d --build
