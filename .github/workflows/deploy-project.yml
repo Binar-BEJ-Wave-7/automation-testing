@@ -16,11 +16,11 @@ jobs:
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
-          host: 178.128.59.112
-          username: root
-          password: 5.9KmYyecwM+xFQ
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd /root/automation-testing
+            cd ${{ secrets.AUTOMATION_PATH }}
             git pull origin main
             docker compose down
             docker compose up -d --build
