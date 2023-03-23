@@ -23,4 +23,6 @@ jobs:
             cd ${{ secrets.AUTOMATION_PATH }}
             git pull origin main
             docker compose down
+            docker rmi automation-testing-automation_testing:latest
+            docker rmi automation-testing-automation_testing_migration:latest
             docker compose up -d --build
