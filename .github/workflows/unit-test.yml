@@ -20,7 +20,7 @@ jobs:
           check-latest: true
 
       - name: Install dependencies 👨🏻‍💻
-        run: npm Install
+        run: npm install
 
       - name: Run unit Testing
         run: npm run test
