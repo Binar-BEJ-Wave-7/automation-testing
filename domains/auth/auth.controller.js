@@ -31,7 +31,8 @@ class AuthController {
             const accessToken = this.jwtLib.sign({user_id: isExistUser.id}, process.env.JWT_SECRET, {expiresIn: '5m'})
 
             const data = {
-                access_token: accessToken
+                access_token: accessToken,
+                type: 'Bearer'
             }
 
             return res.status(200).json(new this.response(200, data))
